@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  planet-service:
+    container_name: 'planet-service'
+    restart: 'always'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '8080:8080'
+    env_file: ./env/.planet.env
+
+ 
