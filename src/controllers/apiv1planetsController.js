@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-var varapiv1planetsController = require('./apiv1planetsControllerService');
+var varapiv1planetsController = require("./apiv1planetsControllerService");
 
 module.exports.getPlanets = function getPlanets(req, res, next) {
   varapiv1planetsController.getPlanets(req.swagger.params, res, next);
