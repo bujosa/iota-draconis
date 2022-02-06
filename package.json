@@ -7,7 +7,9 @@
     "prestart": "npm install",
     "start": "node index.js"
   },
-  "keywords": ["OAI"],
+  "keywords": [
+    "OAI"
+  ],
   "license": "Unlicense",
   "private": true,
   "dependencies": {
