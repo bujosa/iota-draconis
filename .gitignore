@@ -1,2 +1,5 @@
-# NodeModules
+# compiled output
 node_modules
+
+#Configuration
+*/.*.env
