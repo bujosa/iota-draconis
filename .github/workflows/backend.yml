@@ -25,4 +25,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/planet:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/DO2122-C03:latest
