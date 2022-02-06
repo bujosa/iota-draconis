@@ -12,6 +12,7 @@
   ],
   "license": "Unlicense",
   "private": true,
+  "author": "David Bujosa",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
