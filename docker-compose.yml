@@ -1,14 +1,33 @@
 version: '3.4'
 
 services:
+
+  mongo-service:
+    image: mongo
+    expose: 
+      - "${DBPORT}"
+    command: --port ${DBPORT} --logpath /var/log/mongodb/mongodb.log
+    volumes:
+      - "datavolume:/data/db"
+      - "logsvolume:/var/log/mongodb"
+      
   planet-service:
-    container_name: 'planet-service'
     restart: 'always'
     build:
       context: .
-      dockerfile: ./Dockerfile
     ports:
-      - '8080:8080'
-    env_file: ./env/.planet.env
-
- 
+      - "${PORT}:${PORT}"
+    depends_on:
+      - mongo-service
+    volumes:
+     - "logsvolume:/usr/src/app/src/logs"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DBPORT=${DBPORT}
+  
+volumes:
+  
+  datavolume:
+  logsvolume:
+    external: true

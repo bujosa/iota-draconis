@@ -4,6 +4,8 @@ var fs = require("fs"),
   http = require("http"),
   path = require("path");
 
+var logger = require("./logger");
+
 var db = require("./db");
 var bodyParser = require("body-parser");
 var express = require("express");
@@ -18,7 +20,7 @@ app.use(
   })
 );
 
-var serverPort = 8080;
+var serverPort = process.env.PORT || 8080;
 
 var spec = fs.readFileSync(path.join(__dirname, "/api/oas-doc.yaml"), "utf8");
 var oasDoc = jsyaml.safeLoad(spec);
@@ -35,17 +37,20 @@ oasTools.configure(options_object);
 
 oasTools.initialize(oasDoc, app, function () {
   http.createServer(app).listen(serverPort, function () {
-    console.log("App running at http://localhost:" + serverPort);
-    console.log(
+    logger.log("info", "App running at http://localhost:" + serverPort);
+    logger.log(
+      "info",
       "________________________________________________________________"
     );
     if (options_object.docs !== false) {
-      console.log(
+      logger.log(
+        "info",
         "API docs (Swagger UI) available on http://localhost:" +
           serverPort +
           "/docs"
       );
-      console.log(
+      logger.log(
+        "info",
         "________________________________________________________________"
       );
     }
@@ -61,20 +66,20 @@ app.get("/info", function (req, res) {
 
 // Call db connect
 db.connect(function (err, _db) {
-  console.info("Initializing DB...");
+  logger.info("Initializing DB...");
   if (err) {
-    console.error("Error connecting to DB!", err);
+    logger.error("Error connecting to DB!", err);
     return 1;
   } else {
     db.find({}, function (err, planets) {
       if (err) {
-        console.error("Error while getting initial data from DB!", err);
+        logger.error("Error while getting initial data from DB!", err);
       } else {
         if (planets.length === 0) {
-          console.info("Empty DB, loading initial data...");
+          logger.info("Empty DB, loading initial data...");
           db.init();
         } else {
-          console.info("DB already has " + planets.length + " planets.");
+          logger.info("DB already has " + planets.length + " planets.");
         }
       }
     });

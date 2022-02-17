@@ -1,15 +1,16 @@
 "use strict";
 
 var db = require("../db");
+var logger = require("../logger");
 
 module.exports.getPlanets = function getPlanets(req, res, next) {
-  console.info("New GET request to /planets");
+  logger.info("New GET request to /planets");
   db.find({}, function (err, planets) {
     if (err) {
-      console.error("Error getting data from DB");
+      logger.error("Error getting data from DB");
       res.sendStatus(500); // internal server error
     } else {
-      console.info("Sending planets: " + JSON.stringify(planets, 2, null));
+      logger.debug("Sending planets: " + JSON.stringify(planets, 2, null));
       res.send(planets);
     }
   });
@@ -18,12 +19,10 @@ module.exports.getPlanets = function getPlanets(req, res, next) {
 module.exports.addPlanet = function addPlanet(req, res, next) {
   var newPlanet = req.planet.value;
   if (!newPlanet) {
-    console.warn(
-      "New POST request to /planets/ without planet, sending 400..."
-    );
+    logger.warn("New POST request to /planets/ without planet, sending 400...");
     res.sendStatus(400); // bad request
   } else {
-    console.info(
+    logger.info(
       "New POST request to /planets with body: " +
         JSON.stringify(newPlanet, 2, null)
     );
@@ -33,7 +32,7 @@ module.exports.addPlanet = function addPlanet(req, res, next) {
       !newPlanet.haveWater ||
       !newPlanet.satellite
     ) {
-      console.warn(
+      logger.warn(
         "The planet " +
           JSON.stringify(newPlanet, 2, null) +
           " is not well-formed, sending 422..."
@@ -42,18 +41,18 @@ module.exports.addPlanet = function addPlanet(req, res, next) {
     } else {
       db.find({ name: newPlanet.name }, function (err, planets) {
         if (err) {
-          console.error("Error getting data from DB");
+          logger.error("Error getting data from DB");
           res.sendStatus(500); // internal server error
         } else {
           if (planets.length > 0) {
-            console.warn(
+            logger.warn(
               "The planet " +
                 JSON.stringify(newPlanet, 2, null) +
                 " already extis, sending 409..."
             );
             res.sendStatus(409); // conflict
           } else {
-            console.info("Adding planet " + JSON.stringify(newPlanet, 2, null));
+            logger.debug("Adding planet " + JSON.stringify(newPlanet, 2, null));
             db.insert(newPlanet);
             res.sendStatus(201); // created
           }
