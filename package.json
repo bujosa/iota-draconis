@@ -17,7 +17,8 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "js-yaml": "^3.3.0",
-    "nedb": "^1.8.0",
-    "oas-tools": "^2.1.4"
+    "mongodb": "^4.3.1",
+    "oas-tools": "^2.1.4",
+    "winston": "^3.6.0"
   }
 }
