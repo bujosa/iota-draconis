@@ -51,12 +51,16 @@ module.exports.init = function init() {
       satellite: 0,
       orbitalPeriod: 0.24,
       haveWater: true,
+      picture:
+        "https://cdn.pixabay.com/photo/2012/01/09/09/33/mercury-11591_960_720.png",
     },
     {
       name: "Tierra",
       satellite: 1,
       orbitalPeriod: 1,
       haveWater: true,
+      picture:
+        "https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009_960_720.jpg",
     },
   ];
   return this.getConnection().insert(samplePlanets);

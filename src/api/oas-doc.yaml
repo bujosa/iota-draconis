@@ -66,6 +66,10 @@ paths:
       responses:
         '200':
           description: Planet returned
+        '400': 
+          description: bad request 
+        '404':
+          description: Planet not found
           content:
             application/json:
               schema:
@@ -76,7 +80,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errorModel'
-    delete:
+    delete: 
       description: deletes a single planet based on the name
       operationId: deletePlanet
       parameters:
@@ -89,6 +93,10 @@ paths:
       responses:
         '204':
           description: planet deleted
+        '400':
+          description: bad request
+        '404':
+          description: planet not found
         default:
           description: unexpected error
           content:
@@ -108,6 +116,10 @@ paths:
       responses:
         '204':
           description: planet updated
+        '404':
+          description: planet not found
+        '400':
+          description: bad request
         default:
           description: unexpected error
           content:
@@ -147,8 +159,12 @@ components:
           type: number
         haveWater:
           type: boolean
+        picture:
+          type: string
+          minLength: 1
       required:
         - name
         - satellite
         - orbitalPeriod
         - haveWater
+        - picture

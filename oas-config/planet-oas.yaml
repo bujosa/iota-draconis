@@ -147,8 +147,12 @@ components:
           type: number
         haveWater:
           type: boolean
+        picture:
+          type: string
+          minLength: 1
       required:
         - name
         - satellite
         - orbitalPeriod
         - haveWater
+        - picture

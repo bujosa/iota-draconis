@@ -78,7 +78,8 @@ module.exports.updatePlanet = function updatePlanet(req, res, next) {
       !updatedPlanet.name ||
       !updatedPlanet.satellite ||
       !updatedPlanet.haveWater ||
-      !updatedPlanet.orbitalPeriod
+      !updatedPlanet.orbitalPeriod ||
+      !updatedPlanet.picture
     ) {
       logger.warn(
         "The planet " +

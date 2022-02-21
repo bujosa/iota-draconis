@@ -30,7 +30,8 @@ module.exports.addPlanet = function addPlanet(req, res, next) {
       !newPlanet.name ||
       !newPlanet.orbitalPeriod ||
       !newPlanet.haveWater ||
-      !newPlanet.satellite
+      !newPlanet.satellite ||
+      !newPlanet.picture
     ) {
       logger.warn(
         "The planet " +
