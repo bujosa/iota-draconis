@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: "mongo-service"
+    port: 27017
+  selector:
+    app: mongo-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-service
+  template:
+    metadata:
+      labels:
+        app: mongo-service
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - image: mongo
+        name: mongo-service
+ 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: planet-service
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP
+  ports:
+  - name: "planet-service"
+    port: 8080
+  selector:
+    app: planet-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planet-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: planet-service
+  template:
+    metadata:
+      labels:
+        app: planet-service
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - image: bujosa/do2122-c07
+        name: planet-service
