@@ -38,6 +38,8 @@ paths:
       responses:
         '201':
           description: planet created
+        '422':
+          description: planet is not well-formed
         default:
           description: unexpected error
           content:
