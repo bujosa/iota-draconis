@@ -12,7 +12,7 @@ module.exports.findPlanetByname = function findPlanetByname(req, res, next) {
     res.sendStatus(400); // bad request
   } else {
     logger.info("New GET request to /planets/" + name);
-    db.find({ name: name }, function (err, filteredPlanets) {
+    db.find({ name }, function (err, filteredPlanets) {
       if (err) {
         logger.error("Error getting data from DB");
         res.sendStatus(500); // internal server error
@@ -39,13 +39,15 @@ module.exports.deletePlanet = function deletePlanet(req, res, next) {
     res.sendStatus(400); // bad request
   } else {
     logger.info("New DELETE request to /planets/" + name);
-    db.remove({ name: name }, function (err, numRemoved) {
+    db.remove({ name }, function (err, deleteSuccess) {
+      const { deletedCount } = deleteSuccess;
+
       if (err) {
         logger.error("Error removing data from DB");
         res.sendStatus(500); // internal server error
       } else {
-        logger.info("Planets removed: " + numRemoved);
-        if (numRemoved === 1) {
+        logger.info("Planets removed: " + deletedCount);
+        if (deletedCount === 1) {
           logger.debug(
             "The planet with name " +
               name +
@@ -64,6 +66,7 @@ module.exports.deletePlanet = function deletePlanet(req, res, next) {
 module.exports.updatePlanet = function updatePlanet(req, res, next) {
   var updatedPlanet = req.planet.value;
   var name = req.name.value;
+
   if (!updatedPlanet) {
     logger.warn("New PUT request to /planets/ without planet, sending 400...");
     res.sendStatus(400); // bad request
@@ -88,13 +91,13 @@ module.exports.updatePlanet = function updatePlanet(req, res, next) {
       );
       res.sendStatus(422); // unprocessable entity
     } else {
-      db.find({ name: updatedPlanet.name }, function (err, planets) {
+      db.find({ name }, function (err, planets) {
         if (err) {
           logger.error("Error getting data from DB");
           res.sendStatus(500); // internal server error
         } else {
           if (planets.length > 0) {
-            db.update({ name: name }, updatedPlanet);
+            db.update({ name }, updatedPlanet);
             logger.debug(
               "Modifying planet with name " +
                 name +

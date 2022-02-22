@@ -72,17 +72,15 @@ module.exports.find = function find(query, cb) {
 
 //Inserts a new document in the database
 module.exports.insert = function insert(doc, cb) {
-  return this.getConnection().insert(doc, cb);
+  return this.getConnection().insertOne(doc, cb);
 };
 
 //Updates a document that matches the query
 module.exports.update = function update(query, newDoc, cb) {
-  return this.getConnection().update(query, newDoc, cb);
+  return this.getConnection().updateOne(query, { $set: newDoc }, cb);
 };
 
 //Removes a document from the database
 module.exports.remove = function remove(query, cb) {
-  return this.getConnection().remove(query, function (err, res) {
-    cb(err, res.result.n);
-  });
+  return this.getConnection().deleteOne(query, cb);
 };
