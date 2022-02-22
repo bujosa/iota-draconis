@@ -1,9 +1,7 @@
-var validator = require("validator");
-
-export function validatePlanet(planet) {
+module.exports.validatePlanet = function validatePlanet(planet) {
   if (typeof planet.haveWater !== "boolean") return true;
 
-  if (!validator.isURL(planet.picture)) return true;
+  if (!planet.picture) return true;
 
   if (!planet.name) return true;
 
@@ -20,4 +18,4 @@ export function validatePlanet(planet) {
     return true;
 
   return false;
-}
+};

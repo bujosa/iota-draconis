@@ -2,6 +2,7 @@
 
 var db = require("../db");
 var logger = require("../logger");
+var validator = require("../utils/validator");
 
 module.exports.getPlanets = function getPlanets(req, res, next) {
   logger.info("New GET request to /planets");
@@ -26,13 +27,7 @@ module.exports.addPlanet = function addPlanet(req, res, next) {
       "New POST request to /planets with body: " +
         JSON.stringify(newPlanet, 2, null)
     );
-    if (
-      !newPlanet.name ||
-      !newPlanet.orbitalPeriod ||
-      !newPlanet.haveWater ||
-      !newPlanet.satellite ||
-      !newPlanet.picture
-    ) {
+    if (validator.validatePlanet(newPlanet)) {
       logger.warn(
         "The planet " +
           JSON.stringify(newPlanet, 2, null) +
