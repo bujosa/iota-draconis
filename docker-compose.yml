@@ -14,7 +14,7 @@ services:
   planet-service:
     restart: 'always'
     build:
-      context: .
+      context: ./backend
     ports:
       - "${PORT}:${PORT}"
     depends_on:
