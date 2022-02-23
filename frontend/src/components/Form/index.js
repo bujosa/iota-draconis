@@ -61,7 +61,7 @@ const Form = ({ planet, mode }) => {
       };
     });
   };
-  
+
   const handleSubmit = async (e) => {
     try {
       if (mode === "update") {
@@ -88,16 +88,21 @@ const Form = ({ planet, mode }) => {
   return (
     <form className="formContainer">
       <Text h3>{mode === "update" ? "Update" : "Create new"} planet</Text>
-      <label>
-        Planet name:
-        <Input
-          name="name"
-          htmlType="text"
-          required
-          value={planetState.name}
-          onChange={handleInputChange}
-        />
-      </label>
+      {mode === "update" ? (
+        <></>
+      ) : (
+        <label>
+          Planet name:
+          <Input
+            name="name"
+            htmlType="text"
+            required
+            value={planetState.name}
+            onChange={handleInputChange}
+          />
+        </label>
+      )}
+
       <label>
         Satellite:
         <Input
