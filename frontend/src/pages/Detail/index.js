@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { Text, Button } from "@geist-ui/core";
-import { useParams, useNavigate } from "react-router-dom";
-
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Form from "../../components/Form";
-
 import { getDetailPlanet, deletePlanet } from "../../services";
-
 import "./Detail.css";
 
 const Detail = () => {
@@ -41,6 +38,7 @@ const Detail = () => {
 
   const handleCancel = () => {
     setEditMode(false);
+    navigate("/");
   };
 
   const handleUpdate = () => {
@@ -62,10 +60,10 @@ const Detail = () => {
   return (
     <>
       <Text h1 type="success" style={{ textAlign: "center" }}>
-        Planet Detail
+        <Link to="/"> Planet Detail </Link>
       </Text>
       <Text h2 style={{ textAlign: "center" }}>
-        Detail {params.planetName}
+        Detail of {params.planetName}
       </Text>
       <section className="sectionContainer">
         {editMode ? (
@@ -74,25 +72,25 @@ const Detail = () => {
           <>
             {picture ? <img src={picture} alt="planet" /> : null}
             <div className="textContainer">
-              <Text h4 b>
+              <Text h3 b>
                 Name
               </Text>
               <Text h4 mt={0} mb={1.5}>
                 {name}
               </Text>
-              <Text h4 b>
+              <Text h3 b>
                 Satellites
               </Text>
               <Text h4 mt={0} mb={1.5}>
                 {satellite}
               </Text>
-              <Text h4 b>
+              <Text h3 b>
                 Orbital Periods
               </Text>
               <Text h4 mt={0} mb={1.5}>
                 {orbitalPeriod}
               </Text>
-              <Text h4 b>
+              <Text h3 b>
                 Have water?
               </Text>
               <Text h4 mt={0} mb={1.5}>

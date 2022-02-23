@@ -119,6 +119,16 @@ const Form = ({ planet, mode }) => {
         />
       </label>
       <label>
+        Planet image URL:
+        <Input
+          name="picture"
+          htmlType="text"
+          required
+          value={planetState.picture}
+          onChange={handleInputChange}
+        />
+      </label>
+      <label>
         Have water?
         <Radio.Group
           value={planetState.haveWater}
