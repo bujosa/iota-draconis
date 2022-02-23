@@ -4,6 +4,7 @@ var MongoClient = require("mongodb").MongoClient;
 var assert = require("assert");
 
 const DB_PORT = process.env.DBPORT || 27017;
+
 // Connection URL
 const url = "mongodb://mongo-service:" + DB_PORT;
 

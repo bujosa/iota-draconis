@@ -8,8 +8,8 @@ RUN npm install
 COPY . .
 
 VOLUME /usr/src/app/src/logs
-# VOLUME /usr/src/app/src/data
 
-EXPOSE 8080
+EXPOSE 4000
+
 CMD ["npm", "start"]
 
