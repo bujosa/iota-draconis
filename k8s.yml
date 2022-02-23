@@ -26,8 +26,6 @@ spec:
       labels:
         app: mongo-service
     spec:
-      imagePullSecrets:
-      - name: regcred
       containers:
       - image: mongo
         name: mongo-service
@@ -37,35 +35,72 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: planet-service
+  name: backend-service
   annotations:
     dev.okteto.com/auto-ingress: "true"
 spec:
   type: ClusterIP
   ports:
-  - name: "planet-service"
+  - name: "backend-service"
     port: 8080
   selector:
-    app: planet-service
+    app: backend-service
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: planet-service
+  name: backend-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: planet-service
+      app: backend-service
   template:
     metadata:
       labels:
-        app: planet-service
+        app: backend-service
     spec:
-      imagePullSecrets:
-      - name: regcred
       containers:
       - image: bujosa/do2122-c07
-        name: planet-service
+        name: backend-service
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP
+  ports:
+  - name: "frontend-service"
+    port: 3000
+  selector:
+    app: frontend-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend-service
+  template:
+    metadata:
+      labels:
+        app: frontend-service
+    spec:
+      containers:
+      - image: bujosa/do2122-c07-frontend
+        name: frontend-service
+        envFrom:
+        - secretRef: 
+            name: planet

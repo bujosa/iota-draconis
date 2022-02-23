@@ -2,6 +2,7 @@
 
 var MongoClient = require("mongodb").MongoClient;
 var assert = require("assert");
+var logger = require("./logger");
 
 const DB_PORT = process.env.DBPORT || 27017;
 

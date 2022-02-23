@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = `http://localhost:${process.env.REACT_APP_BACK_PORT}/api/v1/planets`;
+const BASE_URL =
+  process.env.REACT_APP_BACKEND_HOST ||
+  `http://localhost:${process.env.REACT_APP_BACK_PORT}/api/v1/planets`;
 
 const getPlanets = axios.get(BASE_URL);
 

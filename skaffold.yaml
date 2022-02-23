@@ -4,7 +4,7 @@ build:
   artifacts:
   - image: bujosa/do2122-c07
     context: ./backend
-  - image: bujosa/do2122-c07-frotend
+  - image: bujosa/do2122-c07-frontend
     context: ./frontend
   local:
     push: true
