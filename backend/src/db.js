@@ -63,7 +63,7 @@ module.exports.init = function init() {
         "https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009_960_720.jpg",
     },
   ];
-  return this.getConnection().insert(samplePlanets);
+  return this.getConnection().insertMany(samplePlanets);
 };
 
 //Executes the query and return the result in the callback function
