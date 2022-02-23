@@ -3,6 +3,7 @@ kind: Config
 build:
   artifacts:
   - image: bujosa/do2122-c07
+    context: ./backend
   local:
     push: true
 deploy:
