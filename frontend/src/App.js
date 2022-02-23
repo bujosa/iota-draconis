@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [updateData, setUpdatedData] = useState(true);
   const [openForm, setOpenForm] = useState(false);
+
   const handleAdd = () => {
     setOpenForm(!openForm);
   };

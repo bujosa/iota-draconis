@@ -67,7 +67,6 @@ app.get("/info", function (req, res) {
   });
 });
 
-// Call db connect
 db.connect(function (err, _db) {
   logger.info("Initializing DB...");
   if (err) {
