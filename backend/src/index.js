@@ -5,7 +5,6 @@ var fs = require("fs"),
   path = require("path");
 
 var logger = require("./logger");
-
 var db = require("./db");
 var bodyParser = require("body-parser");
 var express = require("express");
