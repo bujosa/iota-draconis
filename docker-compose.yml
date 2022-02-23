@@ -16,15 +16,30 @@ services:
     build:
       context: ./backend
     ports:
-      - "${PORT}:${PORT}"
+      - "${BACK_PORT}:${BACK_PORT}"
     depends_on:
       - mongo-service
     volumes:
      - "logsvolume:/usr/src/app/src/logs"
+    expose:
+      - "${BACK_PORT}"
     environment:
       - NODE_ENV=${NODE_ENV}
-      - PORT=${PORT}
+      - PORT=${BACK_PORT}
       - DBPORT=${DBPORT}
+  
+  frontend-service:
+    restart: 'always'
+    build:
+      context: ./frontend
+    ports:
+      - "${FRONT_PORT}:${FRONT_PORT}"
+    depends_on:
+      - planet-service
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${FRONT_PORT}
+      - REACT_APP_BACK_PORT=${BACK_PORT}
   
 volumes:
   
