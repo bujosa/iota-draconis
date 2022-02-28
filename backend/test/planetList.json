@@ -1,0 +1,763 @@
+{
+  "_": {
+    "postman_id": "9e36af07-12f0-4ca7-b175-1e94ad051c52"
+  },
+  "item": [
+    {
+      "id": "4b3b4c11-8acb-47bc-95ae-177c6b01cffe",
+      "name": "get Planets",
+      "request": {
+        "name": "get Planets",
+        "description": {
+          "content": "Returns all planets",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "planets"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "4b4fac50-69a1-484a-8b6b-a4ba9b5e2e15",
+          "name": "Planet List",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "[\n  {\n    \"name\": \"esse qui mollit\",\n    \"satellite\": 76986034.89656207,\n    \"orbitalPeriod\": -43228659.98147334,\n    \"haveWater\": false,\n    \"picture\": \"qui nisi\"\n  },\n  {\n    \"name\": \"tempor\",\n    \"satellite\": 78874401.41383943,\n    \"orbitalPeriod\": 34600277.036419064,\n    \"haveWater\": true,\n    \"picture\": \"ad sint in\"\n  }\n]",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "c03e9446-e344-41f7-9c46-ed39be1ea033",
+          "name": "unexpected error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": -7003708,\n  \"message\": \"sit adipisicing esse\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "1780d78f-fe86-4981-b454-29368738472b",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[GET]::/api/v1/planets - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/v1/planets - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+              "// Validate if response has JSON Body \npm.test(\"[GET]::/api/v1/planets - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+              "// Response Validation\nconst schema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"satellite\":{\"type\":\"number\"},\"orbitalPeriod\":{\"type\":\"number\"},\"haveWater\":{\"type\":\"boolean\"},\"picture\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"name\",\"satellite\",\"orbitalPeriod\",\"haveWater\",\"picture\"]}}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/v1/planets - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\"]});\n});\n"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "abd485e7-488e-4582-80f3-cbac8c3eafcc",
+      "name": "add Planet",
+      "request": {
+        "name": "add Planet",
+        "description": {
+          "content": "Creates a new planet",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "planets"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "text"
+          },
+          "id": "9bfb689e-7355-4477-9dcf-ab9d619fda77",
+          "name": "planet created",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "06a4f7ad-ca8a-4981-a555-692a43282529",
+          "name": "unexpected error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": -7003708,\n  \"message\": \"sit adipisicing esse\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "06873521-dfa1-4975-8c72-cbb09d4973d0",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[POST]::/api/v1/planets - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "778cd5de-8ece-492b-b08d-9ef1577ca524",
+      "name": "find Planet Byname",
+      "request": {
+        "name": "find Planet Byname",
+        "description": {
+          "content": "Returns a planet by name",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "planets",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "description": {
+                "content": "(Required) name of planet to fetch",
+                "type": "text/plain"
+              },
+              "type": "any",
+              "value": "id in fugiat laboris",
+              "key": "name"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET"
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "7a8a57ae-36bb-41fd-998c-04fdafe4cd75",
+          "name": "Planet returned",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) name of planet to fetch",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "7cf92747-814e-4edb-8f96-3b043d8d5650",
+          "name": "unexpected error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) name of planet to fetch",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": -7003708,\n  \"message\": \"sit adipisicing esse\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "2fbf8054-d400-4e54-a2c7-4d032cef5424",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[GET]::/api/v1/planets/:name - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate if response header has matching content-type\npm.test(\"[GET]::/api/v1/planets/:name - Content-Type is application/json\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\n});\n",
+              "// Validate if response has JSON Body \npm.test(\"[GET]::/api/v1/planets/:name - Response has JSON Body\", function () {\n    pm.response.to.have.jsonBody();\n});\n",
+              "// Response Validation\nconst schema = {\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"satellite\":{\"type\":\"number\"},\"orbitalPeriod\":{\"type\":\"number\"},\"haveWater\":{\"type\":\"boolean\"},\"picture\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"name\",\"satellite\",\"orbitalPeriod\",\"haveWater\",\"picture\"]}\n\n// Validate if response matches JSON schema \npm.test(\"[GET]::/api/v1/planets/:name - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\"]});\n});\n"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "15d4f54d-5d68-42b5-94d9-6aac6d46d730",
+      "name": "delete Planet",
+      "request": {
+        "name": "delete Planet",
+        "description": {
+          "content": "deletes a single planet based on the name",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "planets",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "description": {
+                "content": "(Required) ID of planet to delete",
+                "type": "text/plain"
+              },
+              "type": "any",
+              "value": "id in fugiat laboris",
+              "key": "name"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "DELETE"
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "text"
+          },
+          "id": "878d0f89-9347-4314-9a4b-4449d1a804ec",
+          "name": "planet deleted",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ID of planet to delete",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "No Content",
+          "code": 204,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "7bff4a37-5d37-409e-b1e7-2d26a02c0ca1",
+          "name": "unexpected error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ID of planet to delete",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": -7003708,\n  \"message\": \"sit adipisicing esse\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "f33f2b66-f149-44b7-b7d0-e274eeaa2195",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[DELETE]::/api/v1/planets/:name - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate if response has empty Body \npm.test(\"[DELETE]::/api/v1/planets/:name - Response has empty Body\", function () {\n    pm.response.to.not.be.withBody;\n});\n"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fb1be243-b43f-4774-9ad9-5777727a8d5c",
+      "name": "update Planet",
+      "request": {
+        "name": "update Planet",
+        "description": {
+          "content": "Update a planet based on its name",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "planets",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "description": {
+                "content": "(Required) ID of planet to put",
+                "type": "text/plain"
+              },
+              "type": "any",
+              "value": "id in fugiat laboris",
+              "key": "name"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "text"
+          },
+          "id": "7155218e-aef9-4d54-9ddf-5353a069400b",
+          "name": "planet updated",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ID of planet to put",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "7bfe422d-1474-4646-8c83-85284b49535a",
+          "name": "unexpected error",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "planets",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "(Required) ID of planet to put",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "id in fugiat laboris",
+                  "key": "name"
+                }
+              ]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"proident magna Lorem non\",\n  \"satellite\": 34657201.62307897,\n  \"orbitalPeriod\": 36326040.14204976,\n  \"haveWater\": true,\n  \"picture\": \"sunt laborum ullamco voluptate occaecat\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": -7003708,\n  \"message\": \"sit adipisicing esse\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "ef36ac25-901e-4111-92ec-d962cba012f2",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[PUT]::/api/v1/planets/:name - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate if response has empty Body \npm.test(\"[PUT]::/api/v1/planets/:name - Response has empty Body\", function () {\n    pm.response.to.not.be.withBody;\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "fdc514f4-4484-47f6-82d4-62707cf56135",
+        "type": "text/javascript",
+        "exec": []
+      }
+    }
+  ],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9e36af07-12f0-4ca7-b175-1e94ad051c52",
+    "name": "Planet list",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI Specification created by oas-wizard (https://github.com/pafmon/oas-wizard)  \n\nContact Support:\n Name: PabloFM\n Email: pablofm@us.es",
+      "type": "text/plain"
+    }
+  }
+}

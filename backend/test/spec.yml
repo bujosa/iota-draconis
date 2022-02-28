@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Planet list
+  description: >-
+    This is an OpenAPI Specification created by oas-wizard
+    (https://github.com/pafmon/oas-wizard)  
+  contact:
+    name: PabloFM
+    email: pablofm@us.es
+    url: http://www.isa.us.es
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+paths:
+  /api/v1/planets:
+    get:
+      description: Returns all planets
+      operationId: getPlanets
+      responses:
+        200:
+          description: Planet List
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/planet'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+    post:
+      description: Creates a new planet
+      operationId: addPlanet
+      responses:
+        201:
+          description: planet created
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        x-name: planet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/planet'
+        description: Planet to be created
+        required: true
+  /api/v1/planets/{name}:
+    get:
+      description: Returns a planet by name
+      operationId: findPlanetByname
+      parameters:
+        - name: name
+          in: path
+          description: name of planet to fetch
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Planet returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/planet'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+    delete:
+      description: deletes a single planet based on the name
+      operationId: deletePlanet
+      parameters:
+        - name: name
+          in: path
+          description: ID of planet to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: planet deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+    put:
+      description: Update a planet based on its name
+      operationId: updatePlanet
+      parameters:
+        - name: name
+          in: path
+          description: ID of planet to put
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: planet updated
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        x-name: planet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/planet'
+        description: Planet to be updated
+        required: true
+components:
+  schemas:
+    errorModel:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    planet:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        satellite:
+          type: number
+        orbitalPeriod:
+          type: number
+        haveWater:
+          type: boolean
+        picture:
+          type: string
+          minLength: 1
+      required:
+        - name
+        - satellite
+        - orbitalPeriod
+        - haveWater
+        - picture
