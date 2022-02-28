@@ -9,3 +9,6 @@ src/data
 
 #logs
 src/logs
+
+# tmp config
+tmp
