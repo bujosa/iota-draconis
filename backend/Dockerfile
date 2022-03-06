@@ -9,7 +9,5 @@ COPY . .
 
 VOLUME /usr/src/app/src/logs
 
-EXPOSE 4000
-
 CMD ["npm", "start"]
 
