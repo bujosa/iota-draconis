@@ -1,0 +1,19 @@
+name: IntegrationTest CI
+
+on: 
+  push:
+    paths:
+    - 'backend/**'
+    branches:
+      - 'main'
+
+jobs: 
+  integrationTest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm start &
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      - run: npx newman run ./tests/api.json --env-var "baseUrl=http://localhost:8080"
