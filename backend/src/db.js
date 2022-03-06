@@ -33,8 +33,6 @@ module.exports.connect = function connect(cb) {
         process.exit(1);
       }, 1000);
     }
-    console.log('DB connection established!');
-    console.log('Connected to DB: ' + client.s.options.dbName);
     _db = client.db(dbName).collection(dbName);
     return cb(null, _db);
   });

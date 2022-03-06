@@ -22,4 +22,4 @@ jobs:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
       - name: Use newman to run tests
         working-directory: ./backend
-        run: npx newman run ./tests/api.json --env-var "baseUrl=http://localhost:8080"
+        run: npx newman run ./test/api.json --env-var "baseUrl=http://localhost:8080"
