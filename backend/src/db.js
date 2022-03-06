@@ -4,12 +4,13 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var logger = require('./logger');
 var pipeline = require('./pipelines/analytical');
+var dotenv = require('dotenv');
+dotenv.config();
 
 const DB_PORT = process.env.DBPORT || 27017;
 
 // Connection URL
-const url = 'mongodb://mongo-service:' + DB_PORT;
-// const url = 'mongodb://localhost:' + DB_PORT;
+const url = process.env.MONGODB_URL || `mongodb://mongo-service:${DB_PORT}`;
 
 // Database Name
 const dbName = 'planets';
@@ -32,6 +33,8 @@ module.exports.connect = function connect(cb) {
         process.exit(1);
       }, 1000);
     }
+    console.log('DB connection established!');
+    console.log('Connected to DB: ' + client.s.options.dbName);
     _db = client.db(dbName).collection(dbName);
     return cb(null, _db);
   });
