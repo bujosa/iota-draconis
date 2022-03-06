@@ -136,6 +136,32 @@ paths:
               $ref: '#/components/schemas/planet'
         description: Planet to be updated
         required: true
+  '/api/v1/planets/analytics/{limit}':
+    get:
+      description: Returns an analytic of the planets registered in the system.
+      operationId: analytics
+      parameters:
+        - name: limit
+          in: path
+          description: limit of planet to fetch
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: analytic returned
+        '400': 
+          description: bad request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/analytic'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
 components:
   schemas:
     errorModel:
@@ -170,3 +196,15 @@ components:
         - orbitalPeriod
         - haveWater
         - picture
+    analytic:
+      type: object
+      properties:
+        haveWater:
+          type: number
+        dontHaveWater:
+          type: number
+        satelliteAvg:
+          type: number
+        orbitalPeriodAvg:
+          type: number
+
