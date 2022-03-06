@@ -27,6 +27,7 @@ services:
       - NODE_ENV=${NODE_ENV}
       - PORT=${BACK_PORT}
       - DBPORT=${DBPORT}
+      - MONGODB_URI=${MONGODB_URI}
   
   frontend-service:
     restart: 'always'
