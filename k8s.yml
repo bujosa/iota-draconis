@@ -65,6 +65,9 @@ spec:
       containers:
       - image: bujosa/do2122-c07
         name: backend-service
+        envFrom:
+        - secretRef: 
+            name: planet-backend
 
 ---
 
