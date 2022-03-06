@@ -1,16 +1,18 @@
-"use strict";
+'use strict';
 
-var MongoClient = require("mongodb").MongoClient;
-var assert = require("assert");
-var logger = require("./logger");
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var logger = require('./logger');
+var pipeline = require('./pipelines/analytical');
 
 const DB_PORT = process.env.DBPORT || 27017;
 
 // Connection URL
-const url = "mongodb://mongo-service:" + DB_PORT;
+const url = 'mongodb://mongo-service:' + DB_PORT;
+// const url = 'mongodb://localhost:' + DB_PORT;
 
 // Database Name
-const dbName = "planets";
+const dbName = 'planets';
 
 // Create a new MongoClient
 const client = new MongoClient(url);
@@ -20,12 +22,12 @@ var _db;
 //Creates the connection to the database
 module.exports.connect = function connect(cb) {
   if (_db) {
-    logger.warn("Trying to create the DB connection again!");
+    logger.warn('Trying to create the DB connection again!');
     return cb(null, _db);
   }
   client.connect(function (err) {
     if (err) {
-      logger.error("Error connecting to DB!", err);
+      logger.error('Error connecting to DB!', err);
       setTimeout(function () {
         process.exit(1);
       }, 1000);
@@ -39,7 +41,7 @@ module.exports.connect = function connect(cb) {
 module.exports.getConnection = function getConnection() {
   assert.ok(
     _db,
-    "DB connection has not been created. Please call connect() first."
+    'DB connection has not been created. Please call connect() first.'
   );
   return _db;
 };
@@ -48,21 +50,21 @@ module.exports.getConnection = function getConnection() {
 module.exports.init = function init() {
   var samplePlanets = [
     {
-      name: "Mercurio",
+      name: 'Mercurio',
       satellite: 0,
       orbitalPeriod: 0.24,
       haveWater: true,
       picture:
-        "https://cdn.pixabay.com/photo/2012/01/09/09/33/mercury-11591_960_720.png",
+        'https://cdn.pixabay.com/photo/2012/01/09/09/33/mercury-11591_960_720.png'
     },
     {
-      name: "Tierra",
+      name: 'Tierra',
       satellite: 1,
       orbitalPeriod: 1,
       haveWater: true,
       picture:
-        "https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009_960_720.jpg",
-    },
+        'https://cdn.pixabay.com/photo/2011/12/13/14/28/earth-11009_960_720.jpg'
+    }
   ];
   return this.getConnection().insertMany(samplePlanets);
 };
@@ -85,4 +87,14 @@ module.exports.update = function update(query, newDoc, cb) {
 //Removes a document from the database
 module.exports.remove = function remove(query, cb) {
   return this.getConnection().deleteOne(query, cb);
+};
+
+module.exports.aggregate = async function aggregate(limit = 5) {
+  const pipelines = pipeline.AnalisysPipeline(limit);
+
+  const aggCursor = this.getConnection().aggregate(pipelines);
+
+  for await (const doc of aggCursor) {
+    return doc;
+  }
 };
