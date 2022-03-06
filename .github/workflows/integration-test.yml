@@ -12,14 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with: 
+          context: ./backend
       - run: npm install
-        with: 
-          context: ./backend
       - run: npm start &
-        with: 
-          context: ./backend
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
       - run: npx newman run ./tests/api.json --env-var "baseUrl=http://localhost:8080"
-        with: 
-          context: ./backend
