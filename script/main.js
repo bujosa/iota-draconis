@@ -2,12 +2,12 @@ import http from "k6/http";
 import { check, sleep } from "k6";
 
 export const options = {
-      vus: 1,
-      iterations: 3,
+  vus: 1,
+  iterations: 3,
 };
 
 export default function () {
-  const url = `http://localhost:8080/api/v1/planets/analytics/100000`;
+  const url = `http://localhost:4000/api/v1/planets/analytics/100000`;
 
   const res = http.get(url);
 
