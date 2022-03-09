@@ -1,5 +1,13 @@
 export const stages = [
   {
+    name: "|1-10|1-10|1-0|",
+    config: [
+      { duration: "1m", target: 10 },
+      { duration: "1m", target: 10 },
+      { duration: "1m", target: 0 },
+    ],
+  },
+  {
     name: "|2-100|2-100|2-0|",
     config: [
       { duration: "2m", target: 100 },
