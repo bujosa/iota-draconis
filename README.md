@@ -22,8 +22,7 @@ Check which PORT the backend is running on and make sure the main.js from the sc
 
 If so, you can run the following command, if you have influxdb running since the path that the command points to is to that database. <br>
 
-```k6 run --out influxdb=http://localhost:8086/myk6db script/main.js```
-
+```k6 run -e HOSTNAME=http://localhost:4000 -e PLANETS=5000 -e STAGE_ID=1 --out influxdb=http://locahost:8086/myk6db script/main.js```
 
 ## Grafana Steps:
 
